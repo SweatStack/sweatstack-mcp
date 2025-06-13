@@ -9,7 +9,7 @@
 
 This requires [uv](https://docs.astral.sh/uv/) to be installed.
 
-Clone the repository and install the dependencies:
+Clone the repository:
 
 ```bash
 git clone https://github.com/sweatstack/sweatstack-mcp.git
@@ -24,6 +24,12 @@ Install the server for Claude Desktop:
 uv run mcp install src/sweatstack_mcp/server.py --name "SweatStack" --with-editable . --env-file .env
 ```
 
+You might need to restart Claude Desktop for the server to be available.
+After that, you can use the server directly in Claude Desktop.
+
+![Claude Desktop demo](./media/sweatstack-mcp-claude-desktop.gif)
+
+
 
 ## CLI chat with llm
 
@@ -37,3 +43,5 @@ This is built on top of [llm](https://llm.datasette.io/en/stable/index.html) and
 
 This tool requires an API key for an LLM provider to be present.
 Please refer to the [llm documentation](https://llm.datasette.io/en/stable/index.html) for more information.
+
+![CLI demo](./media/sweatstack-mcp-llm.gif)
