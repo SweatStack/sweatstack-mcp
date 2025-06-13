@@ -1,0 +1,13 @@
+{
+    "mcpServers": {
+      "sweatstack": {
+        "command": "uv",
+        "args": [
+          "run",
+          "mcp",
+          "run",
+          "/Users/aart/projects/sweatstack-mcp/src/sweatstack_mcp/server.py"
+        ]
+      }
+    }
+  }

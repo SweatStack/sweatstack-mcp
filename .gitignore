@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.template
+.venv
+__pycache__
+GCP_CREDENTIALS
+**/.DS_Store
+*.egg-info
+.vscode
+dist
+node_modules
+package-lock.json
+package.json
+*.pem
+id_rsa*
+data/*
+tmp/*
