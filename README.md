@@ -23,3 +23,17 @@ Install the server for Claude Desktop:
 ```bash
 uv run mcp install src/sweatstack_mcp/server.py --name "SweatStack" --with-editable . --env-file .env
 ```
+
+
+## CLI chat with llm
+
+The repository also contains a cli tool that can be used to chat interactively with the server.
+
+```
+make chat
+```
+
+This is built on top of [llm](https://llm.datasette.io/en/stable/index.html) and uses the [llm-tools-mcp](https://github.com/VirtusLab/llm-tools-mcp) plugin.
+
+This tool requires an API key for an LLM provider to be present.
+Please refer to the [llm documentation](https://llm.datasette.io/en/stable/index.html) for more information.

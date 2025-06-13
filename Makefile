@@ -1,4 +1,4 @@
-.PHONY: llm
+.PHONY: chat
 
-llm:
+chat:
 	uv run llm chat --ta -T 'MCP("./llm-tools-mcp-config.json")'
