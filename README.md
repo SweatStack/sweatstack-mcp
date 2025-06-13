@@ -45,3 +45,10 @@ This tool requires an API key for an LLM provider to be present.
 Please refer to the [llm documentation](https://llm.datasette.io/en/stable/index.html) for more information.
 
 ![CLI demo](./media/sweatstack-mcp-llm.gif)
+
+
+## Development
+
+Claude Desktop logs are availabe here:
+- MacOS: `~/Library/Logs/Claude/`
+- Windows: `C:\Users\{username}\AppData\Local\Claude\Logs\`

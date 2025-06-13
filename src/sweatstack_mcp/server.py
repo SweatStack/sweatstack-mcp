@@ -1,9 +1,11 @@
 import os
+from io import BytesIO
 from typing import Literal
 
+import matplotlib.pyplot as plt
 import pandas as pd
 import sweatstack as ss
-from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP, Image
 from dotenv import load_dotenv
 
 
@@ -62,7 +64,7 @@ def make_activity_data_llm_friendly(data: pd.DataFrame) -> str:
 
 def determine_adaptive_sampling_kwargs(activity_id: str) -> ss.Metric:
     activity = ss.get_activity(activity_id=activity_id)
-    if activity.sport.is_subsport_of(ss.Sport.cycling):
+    if activity.sport.is_sub_sport_of(ss.Sport.cycling):
         adaptive_sampling_on = ss.Metric.power
     else:
         if ss.Metric.power in activity.metrics:
@@ -124,3 +126,37 @@ async def get_activity_mean_max_values(
     """
     data = ss.get_activity_data(activity_id=activity_id)
     return data.groupby("activity_id")[metric].agg(["mean", "max"]).to_csv(index=False)
+
+
+@server.tool()
+async def get_activity_plot(activity_id: str, metric: str | ss.Metric) -> Image | str:
+    """Get a plot of the timeseries data for an activity for a specific metric."""
+    data = ss.get_activity_data(activity_id)
+    if isinstance(metric, str):
+        metric = ss.Metric(metric)
+
+    if metric.value not in data.columns:
+        return f"Metric {metric} not found in this activity. Try a different metric or activity."
+
+    plt.plot(
+        (data.index - data.index.min()).total_seconds() / 60,
+        data[metric.value],
+        color="black",
+    )
+    plt.xlabel("time [minutes]")
+    plt.ylabel(metric.value)
+    plt.title(f"Activity {activity_id}")
+
+    image_data = BytesIO()
+    plt.savefig(image_data, format="JPEG")
+    image_data.seek(0)
+
+    return Image(data=image_data.getvalue(), format="jpeg")
+
+
+@server.tool()
+async def get_latest_activity_plot(metric: str | ss.Metric, sport: ss.schemas.Sport | None = None) -> Image:
+    """Get a plot of the timeseries data for the latest activity for a specific metric."""
+    latest_activity = ss.get_latest_activity(sport=sport)
+
+    return await get_activity_plot(latest_activity.id, metric)

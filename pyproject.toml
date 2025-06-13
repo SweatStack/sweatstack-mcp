@@ -1,25 +1,26 @@
 [project]
 name = "sweatstack-mcp"
 version = "0.1.0"
-description = "Add your description here"
+description = "SweatStack MCP Server"
 readme = "README.md"
 authors = [
-    { name = "Aart Goossens", email = "aart@goossens.me" }
+    { name = "Aart Goossens", email = "aart@sweatstack.no" }
 ]
 requires-python = ">=3.12"
 dependencies = [
     "fastapi[standard]>=0.115.12",
-    "llm>=0.26",
     "llm-tools-mcp>=0.3",
+    "matplotlib>=3.10.3",
     "mcp[cli]>=1.9.3",
+    "pandas>=2.3.0",
     "pydantic-ai>=0.2.15",
     "python-dotenv>=1.1.0",
     "sweatstack>=0.43.0",
 ]
 
-[project.scripts]
-sweatstack-mcp = "sweatstack_mcp:main"
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sweatstack_mcp"]
